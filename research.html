@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Research — Francis (Yunhe) Hou</title>
+<link rel="stylesheet" href="style.css">
+<link rel="icon" href="favicon.svg" type="image/svg+xml">
+</head>
+<body>
+<header class="side">
+  <a class="name" href="index.html">Francis (Yunhe) Hou</a>
+  <nav>
+<a href="index.html">Home</a>
+<a href="research.html" class="here">Research</a>
+<a href="publications.html">Publications</a>
+<a href="software.html">Software</a>
+<a href="group.html">Group</a>
+<a href="teaching.html">Teaching</a>
+<a href="bio.html">Bio</a>
+  </nav>
+  <p class="foot">Bradley Department of ECE<br>Virginia Tech</p>
+</header>
+<main>
+
+<h1>Research</h1>
+<p class="lede">A power grid is judged twice: first by whether it avoids collapse, and again by what it can do after collapse has happened.</p>
+<p>Most power-system research begins before the blackout. Restoration taught me to begin after it. That choice shaped how I think about the grid. A blackout strips away assumptions. It shows which resources can start from zero, which paths can carry stress before the rest of the system is awake, and which controls still mean something when the operating point has disappeared. Restoration is not only an emergency procedure. It is a test of what the system really is.</p>
+
+<h2>Power system restoration</h2>
+<p>Restoration was once operator craft: cranking paths, energization steps, voltage checks, and load pickup decisions carried in experience and local memory. My work with Professor Chen-Ching Liu and EPRI gave that craft a general structure. The Generic Restoration Milestones framework breaks a restoration into stages that can be computed, checked against voltage, frequency, and thermal limits, and reassembled for different systems. EPRI implemented it in the System Restoration Navigator, now through more than a dozen versions and widely used by utilities. In one real system it cut restoration time by 12.5 percent. In another, with 15,000 buses, it produced the first system-wide restoration plan. My current tools are in the <a href="software.html">GriRes Suite</a>. A monograph in 2019 gathers the restoration work.</p>
+<p>The lesson stayed with me: the grid planned on paper is not always the grid that can return from zero.</p>
+
+<h2>Resilience against extreme events</h2>
+<p>Extreme weather does not create a single outage. It creates a moving event. Components fail, crews move, roads close, generators arrive, switches operate, and restoration begins while the disaster is still unfolding. Classical reliability theory is strongest when failures can be treated as isolated random events. Resilience needs a different grammar: the event modeled as a whole, from what to harden before it arrives, to how to operate while it is happening, to how to recover after damage has accumulated.</p>
+<p>This is where restoration meets logistics. After a typhoon, the limiting question is often not which line failed. It is where the trucks are, which roads are passable, where mobile generators should go, and which switching actions make a repair worth doing. Our work on this joint scheduling problem received the 2021 IEEE Transactions on Smart Grid Outstanding Paper Award and has been used by utilities through several typhoons. The same view extends to ice storms, wildfires, and planning under a climate where the past is no longer a stable guide to the future. A monograph in 2023 gathers this work.</p>
+
+<h2>Security regions and decision-dependent uncertainty</h2>
+<p>A security region is a geometric idea: the set of operating points where the system stays safe. Describe the region, and operation becomes the act of staying inside it.</p>
+<p>But the uncertainty around the system is not fixed. A planning decision changes the uncertainty it later faces. Build a wind farm, and forecast errors change. Harden a line, and failure distributions move. Add a control device, and the feasible operating space changes shape. The decision changes the world in which the decision must succeed. This is decision-dependent uncertainty, DDU. Ignoring it creates a circular error: the model optimizes for a future that the chosen plan has already altered. My group builds planning and operation methods that keep this loop inside the model.</p>
+
+<h2>Converter-mediated resources</h2>
+<p>Wind, solar, storage, and HVDC enter the grid through power-electronic converters. They are usually called inverter-based resources. That phrase names the hardware, not the change. The deeper change is that part of the grid's behavior is now written in control code. The converter mediates between an energy source and the power system, and under stress its logic decides whether the grid is supported, isolated, or destabilized. So I use the term converter-mediated resources, CMR. A grid with many converters cannot be understood from the physics of rotating machines alone. Its safe operating space has to be rebuilt from the converter up. I co-organize the IEEE PES task force on restoration with CMRs.</p>
+<p>It also changes the meaning of attack. A networked converter is a cyber-physical device. A false measurement or a malicious command can move it outside its safe region as surely as a physical fault. My group has studied these attacks in HVDC and multi-area systems, defense placement under limited budgets, and the operating regions that stay secure under attack. This line of work became a monograph in 2026.</p>
+
+<h2>AI data centers on the grid</h2>
+<p>For a century, grid planning has been organized around the sudden loss of a large generator. It has paid far less attention to the sudden loss of a large load. Northern Virginia made that blind spot hard to ignore. In July 2024, a 230 kV transmission fault and reclosing sequence was followed by about 1,500 MW of data center load disconnecting on the customer side and remaining off for hours. The equipment did not fail in the usual sense. The grid protection acted. The customer protection acted. The problem was the interaction between two systems that were each doing what they were designed to do. NERC's <a href="https://www.nerc.com/pa/rrm/ea/Documents/Incident_Review_Large_Load_Loss.pdf">review</a> made the gap plain: operators had not anticipated the loss, and the models needed to study loads like this were still to be built.</p>
+<p>That is why AI data centers matter to power systems. They are not just bigger loads. They are plant-sized electrical systems with control logic, storage, backup generation, and protection of their own. They decide when to leave the grid and when to return. Their demand follows workloads rather than ordinary daily load curves. Their response to a disturbance depends on internal states: UPS charge, server operation, cooling, protection history, and what happened a moment before.</p>
+<p>This turns a passive load into a dynamic participant. Planning has to ask how much load of this kind a network can host, and how much generation and network capacity must be built behind it. Operation has to ask how reserves, ramps, and voltage control should be scheduled when hundreds of megawatts can move in milliseconds. Stability has to ask how these loads ride through disturbances. Restoration has to ask whether the largest loads are only demand to be served, or resources that can help bring the system back.</p>
+<p>My work starts from that shift: modeling these loads as systems with memory and control, and studying the planning, operation, stability, and restoration problems they create.</p>
+
+<h2>Other threads</h2>
+<p>Several problems have run alongside this work: electric springs, which let a load absorb fluctuation instead of passing it to the grid; forecasting and fault detection under incomplete data; the analytics of cascading failures, which treat a collapse as a chain of dependent outages rather than a single fault; and electricity market modeling, where my research began.</p>
+
+<h2>What ties it together</h2>
+<p>The common thread is not a technology. It is a habit of looking for the assumption that has become too expensive to ignore. Restoration asks what the grid can do when the operating point is gone. Resilience asks what happens when failures arrive as a sequence, not a sample. Decision-dependent uncertainty asks what happens when planning changes the uncertainty it faces. Converter-mediated resources ask what changes when grid dynamics are partly written in software. AI data centers ask what happens when loads stop being passive.</p>
+<p>Most of my work lives at that edge, where an old model still looks familiar but the system has quietly moved past it.</p>
+
+<footer>Updated September 2026.</footer>
+</main>
+<script>document.querySelectorAll('.em').forEach(function(s){var a=s.dataset.u+'@'+s.dataset.d;var l=document.createElement('a');l.href='mailto:'+a;l.textContent=a;s.replaceWith(l);});</script>
+</body>
+</html>

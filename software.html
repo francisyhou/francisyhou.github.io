@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Software — Francis (Yunhe) Hou</title>
+<link rel="stylesheet" href="style.css">
+<link rel="icon" href="favicon.svg" type="image/svg+xml">
+</head>
+<body>
+<header class="side">
+  <a class="name" href="index.html">Francis (Yunhe) Hou</a>
+  <nav>
+<a href="index.html">Home</a>
+<a href="research.html">Research</a>
+<a href="publications.html">Publications</a>
+<a href="software.html" class="here">Software</a>
+<a href="group.html">Group</a>
+<a href="teaching.html">Teaching</a>
+<a href="bio.html">Bio</a>
+  </nav>
+  <p class="foot">Bradley Department of ECE<br>Virginia Tech</p>
+</header>
+<main>
+
+<h1>Software</h1>
+<p class="lede">Tools for restoration planning and AC-feasible operation. Current work is open source under the <a href="https://github.com/GriRes">GriRes</a> organization on GitHub.</p>
+
+<h2>GriRes Suite</h2>
+<p>MATLAB toolboxes released under GPL-3.0. Each has a user manual and a regression test suite.</p>
+<h3><a href="https://github.com/GriRes/GRIM">GRIM</a> — Generic Restoration Intelligent Milestone</h3>
+<p>Builds a restoration plan from a complete or partial outage. Models unit cranking, line energization, load pickup, and frequency/RoCoF constraints. It is the successor to HITS and to the milestone method behind the System Restoration Navigator.</p>
+<h3><a href="https://github.com/GriRes">DC2AC</a> — DC-to-AC feasibility analyzer</h3>
+<p>Takes a DC-optimal-power-flow dispatch and reports whether an AC-feasible operating point exists near it, and how far away it is.</p>
+<p class="note">In preparation: GL-ACUC (AC-feasible unit commitment) and GL-VB (virtual bidding with CVaR).</p>
+
+<h2>HITS — Healing Touch for Power Systems</h2>
+<p>The earlier MATLAB toolbox for restoration planning, distributed under the 3-clause BSD license. Kept here for reproducibility; new work should use GRIM.</p>
+<ul>
+  <li><a href="files/HITS_V2.0.zip">HITS 2.0</a> (2022): GUI results, vulnerable line set detection, influence graph matrix.</li>
+  <li><a href="files/HITS_V1.zip">HITS 1.0</a> (2019): command-window restoration planner.</li>
+</ul>
+<p>If you use HITS, please cite: Y. Hou, C.-C. Liu, K. Sun, P. Zhang, S. Liu, and D. Mizumura, "Computation of milestones for decision support during system restoration," <i>IEEE Transactions on Power Systems</i>, vol. 26, no. 3, pp. 1399–1409, 2011.</p>
+
+<h2>System Restoration Navigator</h2>
+<p>Developed for the Electric Power Research Institute between 2010 and 2016 (versions 1.0, 2.0, 4.0, 5.0). It evaluates a restoration procedure and builds one interactively with the planner. EPRI gave it a Technology Transfer Award in 2014. It is EPRI's product; contact them for access.</p>
+
+<h2>Data sets</h2>
+<ul>
+  <li><a href="files/Gansu132_V1.pdf">Simplified Gansu system, 132 buses, 244 branches</a> (V1) · <a href="files/case132_full_ac.m">MATPOWER case with full AC data</a> (V4)</li>
+  <li><a href="files/Gansu157_V3.pdf">Simplified Gansu system, 157 buses, 258 branches</a> (V3)</li>
+  <li><a href="files/WindPowerSimulationData_V2.pdf">Wind power simulation data</a>: 9-, 132-, and 647-bus systems (V2)</li>
+  <li><a href="files/CascadingFailureChainDatabase.zip">Cascading failure chain database</a> for the IEEE 39- and 118-bus systems (18 MB)</li>
+  <li><a href="files/GRM.pdf">Generic Restoration Milestones</a> (technical note)</li>
+</ul>
+
+<footer>Updated September 2026.</footer>
+</main>
+<script>document.querySelectorAll('.em').forEach(function(s){var a=s.dataset.u+'@'+s.dataset.d;var l=document.createElement('a');l.href='mailto:'+a;l.textContent=a;s.replaceWith(l);});</script>
+</body>
+</html>
