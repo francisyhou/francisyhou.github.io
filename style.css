@@ -12,6 +12,8 @@ nav a{display:block;color:var(--ink);text-decoration:none;padding:.15rem 0}
 nav a.here{color:var(--accent);font-weight:700}
 nav a:hover{color:var(--accent)}
 .foot{color:var(--mute);font-size:.85rem;margin-top:1.4rem;line-height:1.4}
+.foot a{color:var(--mute);text-decoration:none}
+.foot a:hover{color:var(--accent);text-decoration:underline}
 main{min-width:0}
 h1{font-size:1.85rem;line-height:1.2;margin:0 0 1.4rem;font-weight:700;letter-spacing:-.01em}
 h2{font-size:1.2rem;margin:2.6rem 0 .7rem;font-weight:700;padding-top:.8rem;border-top:1px solid var(--rule)}
