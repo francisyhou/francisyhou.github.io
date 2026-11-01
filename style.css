@@ -41,6 +41,16 @@ th{font-weight:700}
 .justify p{text-align:justify;hyphens:auto;-webkit-hyphens:auto}
 .justify p.lede{text-align:left}
 .epigraph{margin-top:2.5rem;text-align:right!important;line-height:1.5}
+.books{list-style:none;padding:0;margin:.5rem 0 1.2rem;display:grid;grid-template-columns:repeat(auto-fill,minmax(7.4rem,1fr));gap:1.5rem 1.1rem}
+.books li{margin:0;font-size:.82rem;line-height:1.35}
+.books img{display:block;width:100%;height:auto;aspect-ratio:2/3;object-fit:cover;border:1px solid var(--rule);box-shadow:0 1px 3px rgba(0,0,0,.12);margin-bottom:.55rem}
+.books .bt{display:block;font-weight:700;margin-bottom:.2rem}
+.books .bt a{color:var(--ink);text-decoration:none}
+.books .bt a:hover{color:var(--accent)}
+.books .ba,.books .bp{display:block;color:var(--mute)}
+.shelf{display:flex;flex-wrap:wrap;gap:.8rem;margin:.5rem 0 .7rem}
+.shelf a{display:block;line-height:0}
+.shelf img{height:8.5rem;width:auto;aspect-ratio:2/3;object-fit:cover;border:1px solid var(--rule);box-shadow:0 1px 3px rgba(0,0,0,.12)}
 .counter{margin-top:3rem}
 .counter img{max-width:100%;height:auto}
 footer{margin-top:3rem;padding-top:.8rem;border-top:1px solid var(--rule);color:var(--mute);font-size:.85rem}
@@ -53,6 +63,9 @@ footer{margin-top:3rem;padding-top:.8rem;border-top:1px solid var(--rule);color:
   .foot{display:none}
   .hero{flex-direction:column}
   .hero img{width:7rem}
+  .shelf{display:grid;grid-template-columns:repeat(5,1fr);gap:.5rem}
+  .shelf img{width:100%;height:auto}
+  .books{grid-template-columns:repeat(auto-fill,minmax(6.6rem,1fr));gap:1.2rem .9rem}
 }
 @media (prefers-reduced-motion:reduce){*{transition:none!important}}
 @media print{.side,.counter,footer{display:none}body{display:block;padding:0}}
