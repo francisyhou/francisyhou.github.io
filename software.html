@@ -24,30 +24,76 @@
 <main>
 
 <h1>Software</h1>
-<p class="lede">Open-source tools for power system restoration and for AC-feasible operation. They are built to be used: each has a graphical interface, a full user manual, and an automated test suite. Current work is released under the <a href="https://github.com/GriRes">GriRes</a> organization on GitHub.</p>
+<p class="lede">Open-source tools that answer two questions every grid operator faces. How do we bring the system back after a blackout? Can the grid actually carry the dispatch we computed? Each tool has a graphical interface, a full user manual and an automated test suite, and is released under the <a href="https://github.com/GriRes">GriRes</a> organization on GitHub.</p>
 
 <h2>GriRes Suite</h2>
-<p>The Grid Resilience Suite is a set of MATLAB toolboxes released under GPL-3.0. The tools share one interface style, one data format (MATPOWER cases) and one documentation standard: every algorithm is stated in full, and every result is checked against an independent computation.</p>
+<p>The Grid Resilience Suite is a set of MATLAB toolboxes under GPL-3.0. The tools share one interface style, one data format (MATPOWER cases) and one documentation standard: every algorithm and every constraint is stated in full, and every result is checked against an independent computation.</p>
 
 <h3><a href="https://github.com/GriRes/GRIM">GRIM</a>: Generic Restoration Intelligent Milestone</h3>
-<p><b>Restoration planning for grids with AI data centers.</b> Version 4.0.0, November 2026. <a href="https://github.com/GriRes/GRIM/releases/tag/v4.0.0">Release</a> · <a href="https://github.com/GriRes/GRIM/releases/download/v4.0.0/GRIM_Manual_v4.0.0.pdf">Manual (96 pages)</a></p>
-<p>After a blackout, a large AI data center keeps running on its backup generation, and its fuel is limited. GRIM puts the data center into the restoration plan, next to generator start-up and the pickup of the other critical loads. It is the successor to HITS and to the milestone method behind the System Restoration Navigator.</p>
+<p><b>From blackout to full service, step by step, with every step proven feasible in the AC network.</b></p>
+<p>GRIM computes the complete restoration plan after a blackout: which unit to crank next, which line to energize, which load to pick up, and when each restoration milestone is reached. It is the open-source successor to HITS and builds on the Generic Restoration Milestone method (IEEE Transactions on Power Systems, 2011).</p>
+
+<p><b>Downloads</b></p>
 <ul>
-  <li>Tracks the backup fuel of every data center and reconnects the one closest to running out first.</li>
-  <li>Moves the load to the grid in steps. Every step is checked with an AC optimal power flow and, on request, against a frequency limit set by the online inertia.</li>
-  <li>Builds a restoration plan from a complete or a partial outage, or audits a plan proposed by a dispatcher.</li>
-  <li>Logs the Thevenin equivalent at each data center bus for PSCAD and other EMT studies.</li>
+  <li><b>Version 4.0.0</b> (November 2026, current): <a href="https://github.com/GriRes/GRIM/releases/tag/v4.0.0">Release notes</a> · <a href="https://github.com/GriRes/GRIM/archive/refs/tags/v4.0.0.zip">Source (zip)</a> · <a href="https://github.com/GriRes/GRIM/releases/download/v4.0.0/GRIM_Manual_v4.0.0.pdf">Manual (96 pages)</a></li>
+  <li><b>Version 3.0.0</b> (first open-source release): <a href="https://github.com/GriRes/GRIM/tree/f3e187225a572bd38b22f63463b49b82459805ea">Source</a> · <a href="https://github.com/GriRes/GRIM/archive/f3e187225a572bd38b22f63463b49b82459805ea.zip">Source (zip)</a> · <a href="https://github.com/GriRes/GRIM/blob/f3e187225a572bd38b22f63463b49b82459805ea/Doc/GRIM_Manual_v3.0.0.pdf">Manual</a></li>
 </ul>
 
-<h3><a href="https://github.com/GriRes/GRIT">GRIT</a>: Grid Realizability Inspection Tool</h3>
-<p><b>Is your DC dispatch realizable in the AC grid?</b> Version 1.0.0, November 2026. <a href="https://github.com/GriRes/GRIT/releases/tag/v1.0.0">Release</a> · <a href="https://github.com/GriRes/GRIT/releases/download/v1.0.0/GRIT_Manual_v1.0.0.pdf">Manual (45 pages)</a></p>
-<p>Markets and operators dispatch with the DC model, which has no voltages, no reactive power and no losses. GRIT takes a DC dispatch and reports whether the AC grid can carry it, where it fails, and which nearby dispatch works.</p>
+<p><b>New in 4.0.0: restoration of grids with AI data centers.</b> After a blackout a large AI data center keeps running on its backup generation, and its fuel is limited. It must be back on the grid before the fuel runs out, and the grid must be able to take each step of its load. GRIM 4.0.0 puts the data center into the restoration plan, next to generator start-up and the pickup of the other critical loads.</p>
+
+<p><b>What GRIM does</b></p>
 <ul>
-  <li>A full AC check of a 10,000-bus system takes under one second. For systems of 1,354 buses and more, a check costs 7 to 17 percent of one AC-OPF.</li>
-  <li>One run checks bus voltages, branch loadings in MVA, and generator reactive and active limits.</li>
-  <li>Repairs a violated dispatch with the smallest change of generation and voltage set points. Every step is verified by a new AC solution.</li>
-  <li>Checks all single branch outages or the load levels of a whole day in one call.</li>
+  <li>Computes the restoration sequence and the three milestones: all units cranking and all critical loads connected, all units cranked, all units at minimum output.</li>
+  <li>Three solvers: backtracking (recovers from an infeasible step by trying other orders), greedy (one fast pass), and validation (audits a sequence proposed by a dispatcher and reports where and why it fails).</li>
+  <li>Starts from a complete blackout or from an island that is already energized.</li>
+  <li>Treats AI data centers and other loads with backup generation as restoration targets: tracks their fuel, restores the most urgent one first, and reconnects them in steps (4.0.0).</li>
+  <li>Step Viewer, power trajectory plots, Markdown reports, and a log of the Thevenin equivalent at each data center bus for PSCAD and other EMT studies.</li>
+  <li>Data editor and a converter from MATPOWER cases. Test systems from 7 to 57 buses, four of them with AI data centers.</li>
 </ul>
+
+<p><b>Constraints enforced at every restoration step</b></p>
+<ul>
+  <li><b>AC power flow.</b> Every step is solved as a full AC optimal power flow. A step that has no AC solution is rejected.</li>
+  <li><b>Bus voltage limits</b> at every energized bus.</li>
+  <li><b>Generator active power limits</b>, including the ramp that each unit follows after it is cranked.</li>
+  <li><b>Generator reactive power limits</b>, with four selectable models: fixed, ratio, capability circle and linear.</li>
+  <li><b>Cranking requirements.</b> Each non-black-start unit draws its start-up power for its cranking time before it produces power.</li>
+  <li><b>Energization path.</b> Each step connects one target through an energized path in the network.</li>
+  <li><b>Backup fuel of each data center</b> and the ramp limit of its reconnection, with smaller steps after a cold start (4.0.0).</li>
+  <li><b>Frequency security</b> (optional, 4.0.0). A load pickup is rejected when it exceeds the limit set by the allowed rate of change of frequency and the inertia of the online units.</li>
+</ul>
+<p>Tested with 16 regression scenarios, 150 robustness cases and an interface test.</p>
+
+<h3><a href="https://github.com/GriRes/GRIT">GRIT</a>: Grid Realizability Inspection Tool</h3>
+<p><b>Is your DC dispatch realizable in the AC grid? GRIT answers in under a second for a 10,000-bus system.</b></p>
+<p>Markets and operators dispatch with the DC model, which has no voltages, no reactive power and no losses. A dispatch that satisfies every DC constraint can still violate voltage limits, overload lines, or have no AC solution at all. GRIT takes the DC dispatch and reports whether the AC grid can carry it, where it fails, and which nearby dispatch works.</p>
+
+<p><b>Downloads</b></p>
+<ul>
+  <li><b>Version 1.0.0</b> (November 2026, current): <a href="https://github.com/GriRes/GRIT/releases/tag/v1.0.0">Release notes</a> · <a href="https://github.com/GriRes/GRIT/archive/refs/tags/v1.0.0.zip">Source (zip)</a> · <a href="https://github.com/GriRes/GRIT/releases/download/v1.0.0/GRIT_Manual_v1.0.0.pdf">Manual (45 pages)</a></li>
+</ul>
+
+<p><b>What GRIT does</b></p>
+<ul>
+  <li><b>Check.</b> Solves the AC equations from the DC point and lists every violated limit with its value, limit and excess. For systems of 1,354 buses and more, a check costs 7 to 17 percent of one AC-OPF.</li>
+  <li><b>Repair.</b> Finds a nearby dispatch that satisfies the limits, with the smallest change of generation and voltage set points. Every step is verified by a new AC solution.</li>
+  <li><b>Distance to feasibility.</b> When a repair cannot remove everything, GRIT reports the smallest relaxation of limits that is still needed.</li>
+  <li><b>Verified solution.</b> A Newton-Kantorovich test confirms that an exact AC solution lies within a stated distance of the computed point.</li>
+  <li><b>Batch.</b> All single branch outages, or the load levels of a whole day, in one call. The 186 outages of the IEEE 118-bus system take half a second.</li>
+  <li>Marginal loss factors, Markdown reports and a graphical interface in the style of GRIM.</li>
+</ul>
+
+<p><b>Constraints checked in every run</b></p>
+<ul>
+  <li><b>AC power flow</b> with losses. The generators share the losses, so no single slack unit is overloaded.</li>
+  <li><b>Bus voltage limits</b> at every bus.</li>
+  <li><b>Branch limits</b> on apparent power (MVA) at both ends of every branch. Limits on MW or on current can be selected.</li>
+  <li><b>Generator reactive power limits.</b> A unit that reaches a limit releases its voltage set point, including the reference unit.</li>
+  <li><b>Generator active power limits</b> after the losses are shared.</li>
+  <li><b>Branch angle difference limits</b> (optional).</li>
+</ul>
+<p>Tested with 109 automated tests on cases from 9 to 13,659 buses. Branch flows agree with MATPOWER's AC power flow within 0.0001 MW.</p>
+
 <p class="note">In preparation: GRIP (admission of periodic AI training loads), GL-ACUC (AC-feasible unit commitment) and GL-VB (virtual bidding with CVaR).</p>
 
 <h2>HITS — Healing Touch for Power Systems</h2>
