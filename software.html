@@ -24,15 +24,31 @@
 <main>
 
 <h1>Software</h1>
-<p class="lede">Tools for restoration planning and AC-feasible operation. Current work is open source under the <a href="https://github.com/GriRes">GriRes</a> organization on GitHub.</p>
+<p class="lede">Open-source tools for power system restoration and for AC-feasible operation. They are built to be used: each has a graphical interface, a full user manual, and an automated test suite. Current work is released under the <a href="https://github.com/GriRes">GriRes</a> organization on GitHub.</p>
 
 <h2>GriRes Suite</h2>
-<p>MATLAB toolboxes released under GPL-3.0. Each has a user manual and a regression test suite.</p>
-<h3><a href="https://github.com/GriRes/GRIM">GRIM</a> — Generic Restoration Intelligent Milestone</h3>
-<p>Builds a restoration plan from a complete or partial outage. Models unit cranking, line energization, load pickup, and frequency/RoCoF constraints. It is the successor to HITS and to the milestone method behind the System Restoration Navigator.</p>
-<h3><a href="https://github.com/GriRes">DC2AC</a> — DC-to-AC feasibility analyzer</h3>
-<p>Takes a DC-optimal-power-flow dispatch and reports whether an AC-feasible operating point exists near it, and how far away it is.</p>
-<p class="note">In preparation: GL-ACUC (AC-feasible unit commitment) and GL-VB (virtual bidding with CVaR).</p>
+<p>The Grid Resilience Suite is a set of MATLAB toolboxes released under GPL-3.0. The tools share one interface style, one data format (MATPOWER cases) and one documentation standard: every algorithm is stated in full, and every result is checked against an independent computation.</p>
+
+<h3><a href="https://github.com/GriRes/GRIM">GRIM</a>: Generic Restoration Intelligent Milestone</h3>
+<p><b>Restoration planning for grids with AI data centers.</b> Version 4.0.0, November 2026. <a href="https://github.com/GriRes/GRIM/releases/tag/v4.0.0">Release</a> · <a href="https://github.com/GriRes/GRIM/releases/download/v4.0.0/GRIM_Manual_v4.0.0.pdf">Manual (96 pages)</a></p>
+<p>After a blackout, a large AI data center keeps running on its backup generation, and its fuel is limited. GRIM puts the data center into the restoration plan, next to generator start-up and the pickup of the other critical loads. It is the successor to HITS and to the milestone method behind the System Restoration Navigator.</p>
+<ul>
+  <li>Tracks the backup fuel of every data center and reconnects the one closest to running out first.</li>
+  <li>Moves the load to the grid in steps. Every step is checked with an AC optimal power flow and, on request, against a frequency limit set by the online inertia.</li>
+  <li>Builds a restoration plan from a complete or a partial outage, or audits a plan proposed by a dispatcher.</li>
+  <li>Logs the Thevenin equivalent at each data center bus for PSCAD and other EMT studies.</li>
+</ul>
+
+<h3><a href="https://github.com/GriRes/GRIT">GRIT</a>: Grid Realizability Inspection Tool</h3>
+<p><b>Is your DC dispatch realizable in the AC grid?</b> Version 1.0.0, November 2026. <a href="https://github.com/GriRes/GRIT/releases/tag/v1.0.0">Release</a> · <a href="https://github.com/GriRes/GRIT/releases/download/v1.0.0/GRIT_Manual_v1.0.0.pdf">Manual (45 pages)</a></p>
+<p>Markets and operators dispatch with the DC model, which has no voltages, no reactive power and no losses. GRIT takes a DC dispatch and reports whether the AC grid can carry it, where it fails, and which nearby dispatch works.</p>
+<ul>
+  <li>A full AC check of a 10,000-bus system takes under one second. For systems of 1,354 buses and more, a check costs 7 to 17 percent of one AC-OPF.</li>
+  <li>One run checks bus voltages, branch loadings in MVA, and generator reactive and active limits.</li>
+  <li>Repairs a violated dispatch with the smallest change of generation and voltage set points. Every step is verified by a new AC solution.</li>
+  <li>Checks all single branch outages or the load levels of a whole day in one call.</li>
+</ul>
+<p class="note">In preparation: GRIP (admission of periodic AI training loads), GL-ACUC (AC-feasible unit commitment) and GL-VB (virtual bidding with CVaR).</p>
 
 <h2>HITS — Healing Touch for Power Systems</h2>
 <p>The earlier MATLAB toolbox for restoration planning, distributed under the 3-clause BSD license. Kept here for reproducibility; new work should use GRIM.</p>
@@ -54,7 +70,7 @@
   <li><a href="files/GRM.pdf">Generic Restoration Milestones</a> (technical note)</li>
 </ul>
 
-<footer>Updated September 2026.</footer>
+<footer>Updated November 2026.</footer>
 </main>
 <script>document.querySelectorAll('.em').forEach(function(s){var a=s.dataset.u+'@'+s.dataset.d;var l=document.createElement('a');l.href='mailto:'+a;l.textContent=a;s.replaceWith(l);});</script>
 </body>
